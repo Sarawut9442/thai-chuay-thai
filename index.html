@@ -84,6 +84,7 @@
 
             </div>
 
+            <!-- ส่วนที่ 3: ข้อมูลสิทธิคงเหลือ -->
             <div class="bg-indigo-50/50 border border-indigo-100 rounded-2xl p-4 shadow-inner space-y-3 relative overflow-hidden">
                 <div class="absolute left-0 top-0 bottom-0 w-1 bg-indigo-400"></div>
                 <h3 class="text-indigo-800 font-bold text-sm flex items-center gap-2 pl-2">
@@ -92,6 +93,18 @@
                 <div class="flex justify-between items-center text-sm pl-2">
                     <span class="text-gray-600">สิทธิรัฐช่วยที่เหลืออยู่:</span>
                     <span id="remaining-subsidy" class="font-bold text-indigo-600 text-lg">0 ฿</span>
+                </div>
+                
+                <div class="bg-white/80 rounded-xl p-3 text-sm space-y-2 border border-white shadow-sm">
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-600 text-xs">ซื้อของเพิ่มได้สูงสุดอีก:</span>
+                        <span id="future-buying-power" class="font-bold text-gray-800">0 ฿</span>
+                    </div>
+                    <div class="w-full h-px bg-gray-100"></div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-600 text-xs">ต้องมี G-Wallet จ่ายสมทบ:</span>
+                        <span id="future-wallet-needed" class="font-semibold text-gray-700">0 ฿</span>
+                    </div>
                 </div>
             </div>
 
@@ -139,6 +152,8 @@
             }
 
             let newRemainingSubsidy = Math.max(0, subsidy - usedSubsidy);
+            let futureBuyingPower = newRemainingSubsidy / 0.6;
+            let futureWalletNeeded = futureBuyingPower * 0.4;
 
             // ปัดเศษให้เป็นจำนวนเต็ม
             document.getElementById('scan-amount').innerText = Math.round(scanAmount).toLocaleString('th-TH') + ' ฿';
@@ -146,6 +161,8 @@
             document.getElementById('wallet-amount').innerText = Math.round(walletAmount).toLocaleString('th-TH') + ' ฿';
             document.getElementById('cash-amount').innerText = Math.round(cashAmount).toLocaleString('th-TH') + ' ฿';
             document.getElementById('remaining-subsidy').innerText = Math.round(newRemainingSubsidy).toLocaleString('th-TH') + ' ฿';
+            document.getElementById('future-buying-power').innerText = Math.round(futureBuyingPower).toLocaleString('th-TH') + ' ฿';
+            document.getElementById('future-wallet-needed').innerText = Math.round(futureWalletNeeded).toLocaleString('th-TH') + ' ฿';
         }
 
         window.onload = calculate;
